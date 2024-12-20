@@ -1,7 +1,13 @@
 import streamlit as st
 import yt_dlp
+import imageio_ffmpeg as ffmpeg
 import os
 
+ffmpeg_path = ffmpeg.get_ffmpeg_exe()
+ffprobe_path = ffmpeg_path.replace("ffmpeg", "ffprobe")  # Adjust path to point to ffprobe
+
+# Example to check ffprobe version
+import subprocess
 
 def download_youtube_as_mp3(youtube_url, quality, output_path="downloads"):
     try:
@@ -16,7 +22,7 @@ def download_youtube_as_mp3(youtube_url, quality, output_path="downloads"):
                 'key': 'FFmpegExtractAudio',  # Use FFmpeg to extract audio
                 'preferredcodec': 'mp3',  # Convert to MP3 format
                 'preferredquality': str(quality),  # Set audio quality
-                # 'ffmpeg_location': './bin/ffmpeg',  # Path to ffmpeg binary (Streamlit Cloud)
+                'ffmpeg_location': ffmpeg_path,  # Path to ffmpeg binary (Streamlit Cloud)
             }],
         }
 
@@ -103,3 +109,13 @@ if st.button("Download Video Mp4"):
             )
     else:
         st.warning("Please enter a valid YouTube URL.")
+
+
+def check_ffprobe():
+    result = subprocess.run([ffprobe_path, "-version"], capture_output=True, text=True)
+    return result.stdout
+
+
+# Use in your Streamlit app
+st.text(check_ffprobe())
+
