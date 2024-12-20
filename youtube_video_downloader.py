@@ -22,7 +22,7 @@ def download_youtube_as_mp3(youtube_url, quality, output_path="downloads"):
                 'key': 'FFmpegExtractAudio',  # Use FFmpeg to extract audio
                 'preferredcodec': 'mp3',  # Convert to MP3 format
                 'preferredquality': str(quality),  # Set audio quality
-                'ffmpeg_location': ffmpeg_path,  # Path to ffmpeg binary (Streamlit Cloud)
+                # 'ffmpeg_location': ffmpeg_path,  # Path to ffmpeg binary (Streamlit Cloud)
             }],
         }
 
