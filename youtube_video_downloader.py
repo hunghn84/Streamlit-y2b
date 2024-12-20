@@ -1,11 +1,6 @@
 import streamlit as st
 import yt_dlp
-import imageio_ffmpeg as ffmpeg
 import os
-
-
-ffmpeg_path = ffmpeg.get_ffmpeg_exe()  # Path to the ffmpeg binary
-ffprobe_path = ffmpeg.get_ffmpeg_exe().replace("ffmpeg", "ffprobe")  # Construct ffprobe path
 
 
 def download_youtube_as_mp3(youtube_url, quality, output_path="downloads"):
@@ -21,7 +16,7 @@ def download_youtube_as_mp3(youtube_url, quality, output_path="downloads"):
                 'key': 'FFmpegExtractAudio',  # Use FFmpeg to extract audio
                 'preferredcodec': 'mp3',  # Convert to MP3 format
                 'preferredquality': str(quality),  # Set audio quality
-                'ffmpeg_location': ffmpeg_path,  # Specify ffmpeg binary
+                'ffmpeg_location': './bin/ffmpeg',  # Path to ffmpeg binary (Streamlit Cloud)
             }],
         }
 
